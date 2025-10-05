@@ -171,6 +171,32 @@ class LinkedList:
         self.head = prev
         return True
             
+    # little unconventional, but completely functional
+    def find_mid_node_my_solution(self):
+        mid = self.head
+        curr = self.head
+
+        steps = 0
+
+        while curr:
+            curr = curr.next
+            steps += 1
+
+            if steps % 2 == 0:
+                mid = mid.next
+
+        return mid
+
+
+    def find_mid_node_proper_solution(self):
+        fast = self.head
+        slow = self.head
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            
+        return slow
 
 
 class Node:
@@ -179,9 +205,10 @@ class Node:
         self.next = None
     
 
-ll = LinkedList(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
+my_ll = LinkedList(1)
+my_ll.append(2)
+my_ll.append(3)
+my_ll.append(4)
+my_ll.append(5)
 
+print(my_ll.find_mid_node_proper_solution())

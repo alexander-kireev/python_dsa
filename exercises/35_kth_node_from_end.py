@@ -171,7 +171,27 @@ class LinkedList:
         self.head = prev
         return True
             
+    def get_kth_node_from_end(self, k):
+        slow = self.head
+        fast = self.head
 
+        if k < 0:
+            return None
+        
+        if not self.head:
+            return None
+        
+        for _ in range(k):
+            if fast.next:
+                fast = fast.next
+            else:
+                return None
+        
+        while fast:
+            fast = fast.next
+            slow = slow.next
+
+        return slow
 
 class Node:
     def __init__(self, value):
@@ -179,9 +199,11 @@ class Node:
         self.next = None
     
 
-ll = LinkedList(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
+my_ll = LinkedList(1)
+my_ll.prepend(2)
+my_ll.prepend(3)
+my_ll.prepend(4)
+my_ll.prepend(5)
+
+
 

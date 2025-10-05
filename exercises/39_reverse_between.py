@@ -172,6 +172,60 @@ class LinkedList:
         return True
             
 
+    def reverse_between(self, start, end):
+
+        # get head of ll, set a counter and establish a tracking var
+        node_before_reverse = self.head
+        counter = 0
+        tracker = None
+
+        # get the node before the first node that needs to be reversed
+        while counter < start - 1:
+
+            # ensure node exists
+            if not node_before_reverse:
+                return None
+            
+            # select next node and increment counter
+            node_before_reverse = node_before_reverse.next
+            counter += 1
+
+        # get the first node that is supposed to be reversed
+        curr = node_before_reverse.next
+
+        # save a copy of this node for later. later, this node will
+        # need to be attached to the 'end' node, which is the node
+        # that DOES NOT NEED TO BE REVERSED after the reversed nodes
+        to_be_reattached = curr
+
+        # reverse nodes
+        while counter < end:
+
+            # save a copy of the next node
+            next_node = curr.next
+
+            # get current node's pointer and prepend it to tracker var
+            curr.next = tracker
+
+            # update tracker to the current node
+            tracker = curr
+
+            # switch to next node for next iteration of loop, increment counter
+            curr = next_node
+            counter += 1
+        
+        # if the reversal started from the previous head
+        if start == 0:
+
+            # set head to the last node that was reversed
+            self.head = tracker        
+        
+        else:
+            node_before_reverse.next = tracker
+            
+        to_be_reattached.next = next_node
+        return self.head
+# TODO: 2 BUGS - OUT OF RANGE (1, 5) AND START FROM 0 (0,3)
 
 class Node:
     def __init__(self, value):
@@ -185,3 +239,5 @@ ll.append(3)
 ll.append(4)
 ll.append(5)
 
+ll.reverse_between(1, 5)
+ll.print_list()

@@ -171,6 +171,79 @@ class LinkedList:
         self.head = prev
         return True
             
+    def partition_list_my_solution(self, value):
+
+        left_head = None
+        left_tail = None
+        right_head = None
+        right_tail = None
+
+        curr = self.head
+        
+        while curr:
+            
+            if curr.value >= value:
+                if not right_head:
+                    right_head = curr
+                    right_tail = curr
+                    
+                else:
+                    right_tail.next = curr
+                    right_tail = right_tail.next
+                    right_tail.next = None
+            else:
+                if not left_head:
+                    left_head = curr
+                    left_tail = curr
+
+                else:
+                    left_tail.next = curr
+                    left_tail = left_tail.next
+                    left_tail.next = None
+
+            
+            curr = curr.next
+            
+        
+
+
+        
+        if left_head:
+            left_tail.next = right_head
+            
+        else:
+            self.head = right_head
+        
+
+        return self.head
+
+
+    def partition_list_proper_solution(self, value):
+        left_dummy = Node(0)
+        right_dummy = Node(0)
+        left_tail = left_dummy
+        right_tail = right_dummy
+
+        curr = self.head
+
+        while curr:
+            next_node = curr.next
+            curr.next = None
+
+            if curr.value < value:
+                left_tail.next = curr
+                left_tail = left_tail.next
+            else:
+                right_tail.next = curr
+                right_tail = right_tail.next
+
+            curr = next_node
+
+        
+        left_tail.next = right_dummy.next
+        self.head = left_dummy.next
+
+        return self.head
 
 
 class Node:
@@ -178,10 +251,21 @@ class Node:
         self.value = value
         self.next = None
     
-
+# [1, 4, 3, 2, 5, 2, 5, 6, 7, 5, 8, 1, 9]
 ll = LinkedList(1)
-ll.append(2)
-ll.append(3)
 ll.append(4)
+ll.append(3)
+ll.append(2)
 ll.append(5)
+ll.append(2)
+ll.append(5)
+ll.append(6)
+ll.append(7)
+ll.append(5)
+ll.append(8)
+ll.append(1)
+ll.append(9)
 
+
+ll.partition_list(5)
+ll.print_list()

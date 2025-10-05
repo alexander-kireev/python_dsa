@@ -171,7 +171,16 @@ class LinkedList:
         self.head = prev
         return True
             
+    def binary_to_decimal(self):
+        total = 0
 
+        curr = self.head
+
+        while curr:
+            total = (total * 2) + curr.value
+            curr = curr.next
+        
+        return total
 
 class Node:
     def __init__(self, value):
@@ -180,8 +189,8 @@ class Node:
     
 
 ll = LinkedList(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
+ll.append(0)
+ll.append(0)
+ll.append(0)
 
+print(ll.binary_to_decimal())

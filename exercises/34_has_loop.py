@@ -171,6 +171,20 @@ class LinkedList:
         self.head = prev
         return True
             
+    def has_loop_my_solution(self):
+        slow = self.head
+        fast = self.head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        
+        return False
+
+
+
 
 
 class Node:
@@ -179,9 +193,10 @@ class Node:
         self.next = None
     
 
-ll = LinkedList(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
+my_ll = LinkedList(1)
+my_ll.append(2)
+my_ll.append(3)
+my_ll.append(4)
+my_ll.append(5)
 
+print(my_ll.has_loop_my_solution())

@@ -170,6 +170,25 @@ class LinkedList:
 
         self.head = prev
         return True
+    
+
+    def remove_duplicates(self):
+        found = set()
+
+        prev = None
+        curr = self.head
+
+        while curr:
+            if curr.value in found:
+                prev.next = curr.next
+                curr.next = None
+                curr = prev.next
+            else:
+                found.add(curr.value)
+                prev = curr
+                curr = curr.next
+
+        return self.head
             
 
 
@@ -179,9 +198,25 @@ class Node:
         self.next = None
     
 
-ll = LinkedList(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
+my_ll = LinkedList(1)
+my_ll.prepend(1)
+my_ll.prepend(1)
+my_ll.prepend(1)
+my_ll.prepend(1)
+my_ll.prepend(1)
+my_ll.prepend(1)
+my_ll.prepend(1)
+my_ll.prepend(3)
+my_ll.prepend(3)
+my_ll.prepend(4)
+my_ll.prepend(3)
+my_ll.prepend(3)
+my_ll.prepend(5)
+my_ll.prepend(2)
+my_ll.prepend(1)
+my_ll.prepend(3)
+print(my_ll.length)
+my_ll.remove_duplicates()
+my_ll.print_list()
+
 

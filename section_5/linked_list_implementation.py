@@ -19,13 +19,20 @@ class LinkedList:
     def append(self, value):
 
         new_node = Node(value)
+        dummy = Node(0)
 
-        if self.head is None:
-            self.head = new_node
-            self.tail = new_node
-        else:
-            self.tail.next = new_node
-            self.tail = new_node
+        dummy.next = self.head
+
+        self.head.next = new_node
+
+        self.head = dummy.next
+
+        # if self.head is None:
+        #     self.head = new_node
+        #     self.tail = new_node
+        # else:
+        #     self.tail.next = new_node
+        #     self.tail = new_node
 
         
         self.length += 1
@@ -180,8 +187,6 @@ class Node:
     
 
 ll = LinkedList(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
+ll.remove(0)
 ll.append(5)
-
+ll.print_list()

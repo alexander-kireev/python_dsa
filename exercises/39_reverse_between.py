@@ -174,58 +174,35 @@ class LinkedList:
 
     def reverse_between(self, start, end):
 
-        # get head of ll, set a counter and establish a tracking var
-        node_before_reverse = self.head
-        counter = 0
-        tracker = None
+        dummy = Node(0)
+        dummy.next = self.head
 
-        # get the node before the first node that needs to be reversed
-        while counter < start - 1:
+        before_reverse = dummy
+        first_reverse = self.head
 
-            # ensure node exists
-            if not node_before_reverse:
-                return None
-            
-            # select next node and increment counter
-            node_before_reverse = node_before_reverse.next
-            counter += 1
+        for _ in range(start):
+            if not first_reverse:
+                return False
+            before_reverse = first_reverse
+            first_reverse = first_reverse.next
 
-        # get the first node that is supposed to be reversed
-        curr = node_before_reverse.next
+        curr = first_reverse
+        prev = None
+        next_node = None
 
-        # save a copy of this node for later. later, this node will
-        # need to be attached to the 'end' node, which is the node
-        # that DOES NOT NEED TO BE REVERSED after the reversed nodes
-        to_be_reattached = curr
+        for _ in range(end - start + 1):
+            if not curr:
+                return False
 
-        # reverse nodes
-        while counter < end:
-
-            # save a copy of the next node
             next_node = curr.next
-
-            # get current node's pointer and prepend it to tracker var
-            curr.next = tracker
-
-            # update tracker to the current node
-            tracker = curr
-
-            # switch to next node for next iteration of loop, increment counter
+            curr.next = prev
+            prev = curr
             curr = next_node
-            counter += 1
-        
-        # if the reversal started from the previous head
-        if start == 0:
 
-            # set head to the last node that was reversed
-            self.head = tracker        
-        
-        else:
-            node_before_reverse.next = tracker
-            
-        to_be_reattached.next = next_node
-        return self.head
-# TODO: 2 BUGS - OUT OF RANGE (1, 5) AND START FROM 0 (0,3)
+        first_reverse.next = curr
+        before_reverse.next = prev
+
+        self.head = dummy.next
 
 class Node:
     def __init__(self, value):
@@ -233,11 +210,11 @@ class Node:
         self.next = None
     
 
-ll = LinkedList(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
+ll = LinkedList(5)
+ll.append(10)
+ll.append(15)
+ll.append(20)
+ll.append(25)
 
-ll.reverse_between(1, 5)
+ll.reverse_between(1,4)
 ll.print_list()

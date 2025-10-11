@@ -149,3 +149,31 @@ class DLL:
             self.length -= 1
             return cur
         return False
+    
+    def is_pallindrome(self):
+        # set both cursors to head
+        left = self.head
+        right = self.head
+
+        # if list is empty
+        if not left:
+            return True
+
+        # traverse list, finding the tail
+        while right.next:
+            right = right.next
+        
+        # traverse list from both ends to middle
+        while left != right and left.prev != right:
+            if left.value != right.value:
+                return False
+            left = left.next
+            right = right.prev
+
+        return True
+    
+dll = DLL(1)
+dll.append(2)
+dll.append(1)
+
+print(dll.is_pallindrome())

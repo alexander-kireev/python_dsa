@@ -149,3 +149,48 @@ class DLL:
             self.length -= 1
             return cur
         return False
+    
+
+    def swap_nodes(self):
+
+        dummy = Node(0)
+        tail = dummy
+        cur = self.head
+        cur2 = None
+    
+        
+        while cur:
+            cur2 = cur.next
+
+            if not cur2:
+                cur.prev = tail
+                tail.next = cur
+                cur.next = None
+                cur = None #
+            else:
+                next = cur2.next#
+
+                cur2.prev = tail#
+                cur.prev = cur2
+                
+                tail.next = cur2
+                tail = cur
+                cur2.next = cur
+                cur.next = next
+
+                if next:
+                    next.prev = cur
+
+                cur = next
+
+        self.head = dummy.next
+        return self.head
+
+dll = DLL(5)
+dll.append(10)
+dll.append(15)
+#dll.append(20)
+# dll.append(25)
+
+dll.swap_nodes()
+dll.print_list()

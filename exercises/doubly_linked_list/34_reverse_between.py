@@ -149,3 +149,63 @@ class DLL:
             self.length -= 1
             return cur
         return False
+    
+
+    def reverse_between(self, start, end):
+        if not self.head or not self.head.next:
+            return self.head
+        
+        dummy = Node(0)
+        dummy.next = self.head
+        before_reverse = dummy
+        first_reverse = self.head
+
+        count = 1
+
+        while count < start:
+            before_reverse = first_reverse
+            first_reverse = first_reverse.next
+            count += 1
+
+        cur = first_reverse
+
+        while count <= end:
+            temp = cur.next
+
+            cur.next = cur.prev
+            cur.prev = temp
+
+            last_reversed = cur
+            cur = temp
+
+            count += 1
+
+
+        before_reverse.next = last_reversed 
+        last_reversed.prev = before_reverse
+        self.head = dummy.next
+
+        first_reverse.next = cur
+
+        if cur:
+            cur.prev = first_reverse
+
+        return self.head
+
+
+
+
+        
+
+dll = DLL(5)
+dll.append(10)
+# dll.append(15)
+# dll.append(20)
+# dll.append(25)
+
+
+
+
+dll.reverse_between(1,2)
+dll.print_list()
+        

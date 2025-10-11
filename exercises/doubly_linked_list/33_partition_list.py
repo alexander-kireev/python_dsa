@@ -149,3 +149,45 @@ class DLL:
             self.length -= 1
             return cur
         return False
+    
+    def partition_list(self, value):
+
+        cur = self.head
+
+        left_head = Node(0)
+        left_tail = left_head
+
+        right_head = Node(0)
+        right_tail = right_head
+
+        while cur:
+            temp = cur.next
+            cur.prev = None
+            cur.next = None
+
+            if cur.value < value:
+                left_tail.next = cur
+                cur.prev = left_tail
+                left_tail = left_tail.next
+                left_tail.next = None
+            else:
+                right_tail.next = cur
+                cur.prev = right_tail
+                right_tail = right_tail.next
+                right_tail.next = None
+            
+
+            cur = temp
+
+            
+        if right_head.next:
+            right_head.next.prev = left_tail
+        left_tail.next = right_head.next
+        self.tail = right_tail
+        self.head = left_head.next
+
+        return self.head
+
+
+
+

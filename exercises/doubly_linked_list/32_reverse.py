@@ -149,3 +149,44 @@ class DLL:
             self.length -= 1
             return cur
         return False
+    
+
+    def reverse(self):
+        if not self.head or not self.head.next:
+            return self.head
+        
+        cur = self.head
+        temp = None
+
+        while cur:
+            temp = cur.prev
+            cur.prev = cur.next
+            cur.next = temp
+            cur = cur.prev
+
+        self.head = temp.prev
+        
+        return self.head
+            
+
+
+
+
+
+
+
+
+
+
+
+
+dll =DLL(1)
+dll.append(2)
+dll.append(3)
+dll.append(4)
+
+
+dll.print_list()
+dll.reverse()
+print()
+dll.print_list()
